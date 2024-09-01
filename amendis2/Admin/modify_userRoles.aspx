@@ -31,6 +31,17 @@
                 <asp:TextBox ID="PasswordTextBox" runat="server" TextMode="Password" CssClass="rounded border border-gray-700 p-1 sm:w-72"></asp:TextBox>
             </div>
 
+             <div class="mb-6 flex justify-center space-x-4">
+                <asp:Label ID="ActiviteLabel" runat="server" CssClass="mr-12 font-medium">Activite:</asp:Label>
+                <asp:TextBox ID="ActiviteTextBox" runat="server" CssClass="rounded border border-gray-700 p-1 sm:w-72"></asp:TextBox>
+            </div>
+
+            <div class="mb-6 flex justify-center space-x-4">
+                <asp:Label ID="NomSocieteLabel" runat="server" CssClass="font-medium">Nom Societe:</asp:Label>
+                <asp:TextBox ID="NomSocieteTextBox" runat="server" CssClass="rounded border border-gray-700 p-1 sm:w-72"></asp:TextBox>
+            </div>
+
+
             <asp:CheckBoxList 
                 ID="RolesCheckBoxList"  
                 runat="server" 

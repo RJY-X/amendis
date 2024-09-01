@@ -32,10 +32,6 @@
                     <div class="mb-4 flex justify-center">
                         <asp:Button runat="server" OnClick="LogIn" Text="Se connecter" CssClass="btn btn-outline-dark cursor-pointer items-center rounded bg-black px-20 py-2 font-bold text-white" />
                     </div>
-
-                    <p class="mt-4 flex justify-center">
-                        <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled" CssClass="text-white">Inscrivez-vous en tant que nouvel utilisateur</asp:HyperLink>
-                    </p>
                     <p class="mt-2">
                         <%-- Enable this once you have account confirmation enabled for password reset functionality
                         <asp:HyperLink runat="server" ID="ForgotPasswordHyperLink" ViewStateMode="Disabled" CssClass="text-blue-500 hover:text-blue-700">Forgot your password?</asp:HyperLink>

@@ -13,6 +13,8 @@ namespace amendis2.Admin
 
     public partial class modify_userRoles
     {
+        protected global::System.Web.UI.WebControls.TextBox NomSocieteTextBox;
+        protected global::System.Web.UI.WebControls.TextBox ActiviteTextBox;
         protected global::System.Web.UI.WebControls.Panel UserDetailsPanel;
         protected global::System.Web.UI.WebControls.TextBox UsernameTextBox;
         protected global::System.Web.UI.WebControls.TextBox EmailTextBox;

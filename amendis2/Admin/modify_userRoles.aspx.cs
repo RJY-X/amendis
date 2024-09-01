@@ -64,7 +64,7 @@ namespace amendis2.Admin
             if (user != null)
             {
                 UsernameTextBox.Text = user.UserName;
-                EmailTextBox.Text = user.Email;
+                EmailTextBox.Text = user.Email; 
 
                 // Load roles
                 var userRoles = await _userManager.GetRolesAsync(user.Id);
@@ -101,6 +101,8 @@ namespace amendis2.Admin
         {
             string username = SearchTextBox.Text;
             var user = await _userManager.FindByNameAsync(username);
+            string nomSociete = NomSocieteTextBox.Text.Trim();
+            string activite = ActiviteTextBox.Text.Trim();
 
             if (user != null)
             {
@@ -134,36 +136,39 @@ namespace amendis2.Admin
                         }
                     }
 
-                    // Update password
-                    var newPassword = PasswordTextBox.Text;
-                    if (!string.IsNullOrEmpty(newPassword))
-                    {
-                        var passwordResult = await _userManager.RemovePasswordAsync(user.Id);
-                        if (passwordResult.Succeeded)
-                        {
-                            passwordResult = await _userManager.AddPasswordAsync(user.Id, newPassword);
-                            if (passwordResult.Succeeded)
-                            {
-                                StatusMessageLabel.Text = "User updated successfully.";
-                                StatusMessageLabel.Visible = true;
-                            }
-                            else
-                            {
-                                StatusMessageLabel.Text = $"Failed to update password: " + string.Join(", ", passwordResult.Errors);
-                                StatusMessageLabel.Visible = true;
-                            }
-                        }
-                        else
-                        {
-                            StatusMessageLabel.Text = $"Failed to remove old password: " + string.Join(", ", passwordResult.Errors);
-                            StatusMessageLabel.Visible = true;
-                        }
-                    }
+                    // Update additional info
+                    UpdateUserAdditionalInfo(user.Id, NomSocieteTextBox.Text, ActiviteTextBox.Text);
+
+                    StatusMessageLabel.Text = "User updated successfully.";
+                    StatusMessageLabel.Visible = true;
                 }
                 else
                 {
                     StatusMessageLabel.Text = $"Failed to update user: " + string.Join(", ", result.Errors);
                     StatusMessageLabel.Visible = true;
+                }
+            }
+            else
+            {
+                StatusMessageLabel.Text = "User not found.";
+                StatusMessageLabel.Visible = true;
+            }
+        }
+
+        private void UpdateUserAdditionalInfo(string userId, string nomSociete, string activite)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE [AspNetUsers] SET [NomSociete] = @NomSociete, [Activite] = @Activite WHERE [Id] = @UserId";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@NomSociete", nomSociete);
+                    command.Parameters.AddWithValue("@Activite", activite);
+                    command.Parameters.AddWithValue("@UserId", userId);
+
+                    command.ExecuteNonQuery();
                 }
             }
         }
